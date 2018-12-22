@@ -1,0 +1,4 @@
+def power(x):
+  return x*x
+
+z = y + 1 + 7
