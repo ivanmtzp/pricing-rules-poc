@@ -1,8 +1,8 @@
 from flask import render_template
 from flask import Flask
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, Optional
 import os
 
 app = Flask(__name__)
@@ -17,6 +17,7 @@ return x*x
 
 class ExpresionForm(FlaskForm):
     expression = StringField('Expression', validators=[DataRequired()])
+    code = TextAreaField(u'Code', validators=[DataRequired()])
     submit = SubmitField('Evaluate')
 
 @app.route('/')
@@ -24,7 +25,7 @@ def hello_world():
     y = 5
     z = 0
     #loc = {'y': y, 'z': z}
-    exec(open(os.path.join(os.getcwd(),"script.txt")).read(), {}, {'y': y, 'z': z})
+    exec(open(os.path.join(os.getcwd(), "src", "script.txt")).read(), {}, {'y': y, 'z': z})
     return 'Hello World! ' + str(z)
 
 @app.route('/index')
