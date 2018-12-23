@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h4>Application variables</h4>
+    {{ appVariables }}
+    <hr>
+    <h4>Script</h4>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.variableName1.label }}
+            {{ form.variableName1(size=32) }}
+            {{ form.variableValue1(size=32) }} <br/>
+            {{ form.variableName2.label }}
+            {{ form.variableName2(size=32) }}
+            {{ form.variableValue2(size=32) }} <br/>
+            {{ form.code.label }} <br/>
+            {{ form.code(cols="120", rows="35") }} <br/>
+         <p>{{ form.submit() }}</p>
+    </form>
+    <hr>
+    <h4>Result variables</h4>
+    {{ resVariables }}
+{% endblock %}

@@ -1,14 +1,12 @@
 <html>
     <head>
       {% if title %}
-      <title>{{ title }} - Microblog</title>
+      <title>{{ title }} - Dynamic Script</title>
       {% else %}
-      <title>Welcome to Microblog</title>
+      <title>Dynamic Script</title>
       {% endif %}
     </head>
     <body>
-        <div>Microblog: <a href="/index">Home</a></div>
-        <hr>
         {% block content %}{% endblock %}
     </body>
 </html>
