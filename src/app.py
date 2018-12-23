@@ -2,17 +2,13 @@ from flask import render_template, redirect, url_for, Flask
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField, DecimalField, FloatField
 from wtforms.validators import DataRequired, Optional
+import math
 import os
 
 app = Flask(__name__)
 app.config.from_mapping(
         SECRET_KEY='dev',
     )
-
-
-string='''def power(x) 
-return x*x
-'''
 
 
 class ExpresionForm(FlaskForm):
@@ -24,13 +20,8 @@ class ExpresionForm(FlaskForm):
     submit = SubmitField('Evaluate')
 
 
-@app.route('/hello')
-def hello_world():
-    y = 5
-    z = 0
-    loc = {'y': y, 'z': z}
-    exec(open(os.path.join(os.getcwd(), "src", "script.txt")).read(), {}, loc)
-    return 'Hello World! ' + str(loc['z'])
+def calculate_forward(spot, rate, div_rate):
+    return spot * math.exp(rate - div_rate)
 
 
 @app.route('/', methods = ['POST', 'GET'])
@@ -40,6 +31,7 @@ def login():
     if form.validate_on_submit():
         code = form.code.data
         locRes = dict(locApp)
+        locRes['calculate_forward'] = calculate_forward
         locRes[form.variableName1.data] = form.variableValue1.data
         if form.variableName2.data:
             locRes[form.variableName2.data] = form.variableValue2.data
